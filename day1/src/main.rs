@@ -1,8 +1,6 @@
 use std::fs;
 
 fn main() {
-
-  // ID and LOCATION in list, key: ID, value: location
   let mut v1 = vec!();
   let mut v2 = vec!();
 
@@ -16,7 +14,8 @@ fn main() {
 
   v1.sort();
   v2.sort();
-  let sum = v1 .iter() .zip(v2.iter()) .fold(0, |acc, (x, y)| { acc + i32::abs(x-y) });
+
+  let sum = v1.iter().zip(v2.iter()).fold(0, |acc, (x, y)| { acc + i32::abs(x-y) });
 
   let mut sum2 = 0;
   for e in v1 {
