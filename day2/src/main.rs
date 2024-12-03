@@ -3,6 +3,7 @@ use std::fs;
 fn main() {
   let data = fs::read_to_string("day2/input")
     .expect("file parsing")
+    .trim()
     .lines()
     .map(|s| 
       s.split(" ")
@@ -51,6 +52,40 @@ fn main() {
       }
     }
   }
-  println!("{}", c);
 
+  // println!("task1: {}", c);
+  let mut c = 0;
+  'outer: for row in data {
+
+    let dir = row[0] < row[1];
+    if safe(&row, dir) { c+=1; continue 'outer }
+    println!("{:?}", row);
+
+    for i in 1..(row.len()) {
+      let mut v = vec![];
+      v.append(&mut row[..i-1].to_vec());
+      v.append(&mut row[i..].to_vec());
+      print!("{:?}", v);
+
+      let dir = v[0] < v[1];
+      if safe(&v, dir) { c+=1; print!(" <----"); break }
+      println!();
+    }
+    println!();
+  }
+
+  println!("{}", c);
+}
+
+pub fn safe(row: &[i32], dir: bool) -> bool { 
+  for w in row.windows(2) {
+    let tmp = {
+      if dir { w[1] - w[0] } 
+      else   { w[0] - w[1] }
+    };
+    if !(1..=3).contains(&tmp) {
+      return false
+    }
+  }
+  true
 }
