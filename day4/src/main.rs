@@ -41,13 +41,11 @@ fn main() {
   let mut c = 0;
   let l = data[0].len();
   for win in data.windows(3) {
-    for i in 0..l {
-      if i < l-2 {
-        match &[win[0][i], win[0][i+2], win[1][i+1], win[2][i], win[2][i+2]] {
-          ['M','M','A','S','S'] | ['S','M','A','S','M'] | ['S','S','A','M','M'] | ['M','S','A','M','S'] => c+=1,
-          _ => ()
-        } 
-      }
+    for i in 0..l-2 {
+      match &[win[0][i], win[0][i+2], win[1][i+1], win[2][i], win[2][i+2]] {
+        ['M','M','A','S','S'] | ['S','M','A','S','M'] | ['S','S','A','M','M'] | ['M','S','A','M','S'] => c+=1,
+        _ => ()
+      } 
     }
   }
   println!("{}", c);
