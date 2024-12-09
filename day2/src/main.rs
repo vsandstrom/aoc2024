@@ -13,68 +13,37 @@ fn main() {
         ).collect::<Vec<i32>>()
     ).collect::<Vec<Vec<i32>>>();
 
-  let dir = |x: i32, y: i32| {
-    match (x, y) {
-      (x, y) if x < y => Some(true),
-      (x, y) if x > y => Some(false),
-      (x, y) if x == y => None,
-      _ => panic!()
-    }
-  };
-
-  let mut c = data.len();
+  let mut c = 0;
   for row in &data {
-    let mut p = None;
-    'inner: for win in row.windows(2) {
-      match p {
-        // uninitialized p
-        None => { 
-          let d = dir(win[0], win[1]);
-          // if first pair is equal:
-          if d.is_none() { c-=1; break 'inner }
-          if i32::abs(win[0] - win[1]) > 3 { c-=1; break 'inner }
-          p = d;
-        },
-        Some(d) => {
-          match dir(win[0], win[1]) {
-            // either inc or dec
-            Some(w) => {
-              // 
-              if w == d && i32::abs(win[0] - win[1]) <= 3 { continue 'inner; }
-              c-=1; 
-              break 'inner
-            },
-            None => {
-              c-=1; break 'inner
-            }
-          }
-        }
+    if let Some(d) = dir(row[0], row[1]) {
+      if safe(row, d) { c+=1; continue}
+    }
+  }
+  println!("{}", c);
+
+  let mut c = 0;
+  for row in data {
+    if let Some(d) = dir(row[0], row[1]) {
+      if safe(&row, d) { c+=1; continue}
+    }
+
+    for i in 0..row.len() {
+      let row = &[&row[..i], &row[(i+1)..]].concat();
+      if let Some(d) = dir(row[0], row[1]) {
+        if safe(row, d) { c+=1; break}
       }
     }
   }
-
-  // println!("task1: {}", c);
-  let mut c = 0;
-  'outer: for row in data {
-
-    let dir = row[0] < row[1];
-    if safe(&row, dir) { c+=1; continue 'outer }
-    println!("{:?}", row);
-
-    for i in 1..(row.len()) {
-      let mut v = vec![];
-      v.append(&mut row[..i-1].to_vec());
-      v.append(&mut row[i..].to_vec());
-      print!("{:?}", v);
-
-      let dir = v[0] < v[1];
-      if safe(&v, dir) { c+=1; print!(" <----"); break }
-      println!();
-    }
-    println!();
-  }
-
   println!("{}", c);
+}
+  
+fn dir(x: i32, y: i32) -> Option<bool> {
+  match (x, y) {
+    (x, y) if x < y => Some(true),
+    (x, y) if x > y => Some(false),
+    (x, y) if x == y => None,
+    _ => panic!()
+  }
 }
 
 pub fn safe(row: &[i32], dir: bool) -> bool { 
