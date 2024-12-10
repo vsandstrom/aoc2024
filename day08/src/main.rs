@@ -3,7 +3,7 @@ use std::ops::Neg;
 
 fn main() {
   let mut hm: HashMap<char, Vec<(i32, i32)>> = HashMap::new();
-  let antennas: Vec<Vec<char>> = fs::read_to_string("day8/input").expect("no input file")
+  let antennas: Vec<Vec<char>> = fs::read_to_string("day08/input").expect("no input file")
     .lines()
     .map(|l| l.chars().collect()).collect();
 

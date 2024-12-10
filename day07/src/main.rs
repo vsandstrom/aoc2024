@@ -6,7 +6,7 @@ fn main() {
   
   // check if value on other branch on current recursive depth is equal to an other.
   // let hm: HashMap<usize, i32> = HashMap::new();
-  let data = fs::read_to_string("day7/input").expect("no input file")
+  let data = fs::read_to_string("day07/input").expect("no input file")
     .lines()
     .map(|l| 
       l.split(&[':', ' '])

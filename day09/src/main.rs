@@ -4,7 +4,7 @@ use std::env::args;
 fn main() {
 
   let mut argv = args();
-  let file = fs::read(format!("day9/{}", argv.nth(1).unwrap_or("test".to_string()))).expect("no input file");
+  let file = fs::read(format!("day09/{}", argv.nth(1).unwrap_or("test".to_string()))).expect("no input file");
 
   let mut data: Vec<Vec<u32>> = vec!();
 

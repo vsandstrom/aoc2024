@@ -1,7 +1,7 @@
 use std::fs;
 
 fn main() {
-  let data = fs::read_to_string("day4/input").expect("file parsing").lines().map(|s| s.to_string().chars().collect::<Vec<char>>()).collect::<Vec<Vec<char>>>();
+  let data = fs::read_to_string("day04/input").expect("file parsing").lines().map(|s| s.to_string().chars().collect::<Vec<char>>()).collect::<Vec<Vec<char>>>();
 
   let mut c = 0;
   for row in &data {

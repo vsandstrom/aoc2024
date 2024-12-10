@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 
 
 fn main() {
-  let file = fs::read_to_string("day5/test").expect("file parsing");
+  let file = fs::read_to_string("day05/test").expect("file parsing");
   let mut data = file.split("\n\n");
   let mut bck_rules: HashMap<i32, HashSet<i32>> = HashMap::new();
   let mut fwd_rules: HashMap<i32, HashSet<i32>> = HashMap::new();

@@ -4,9 +4,10 @@ use std::{
   env::args,
 };
 
+
 fn main() {
   let mut argv = args();
-  let file = fs::read_to_string(format!("day10/{}", argv.nth(1).unwrap_or("test".to_string())))
+  let file = fs::read_to_string(format!("day10/{}", path(), argv.nth(1).unwrap_or("test".to_string())))
     .expect("no input file")
     .lines()
     .map(|l| l.bytes().map(|b| {b-b'0'}).collect::<Vec<u8>>())
@@ -20,24 +21,18 @@ fn main() {
     }
   }
 
-  printmap(&file);
-
   let h = file.len();
   let w = file[0].len();
 
-  // hashmap to keep track of start_pos to summit trails
+
+  // * PART 1 *
   let mut frontier = vec!();
   let mut peaks = vec![0; start_pos.len()];
 
-  // * PART 1 *
-
-  println!("{:?}", start_pos);
   for (i, spos) in start_pos.iter().enumerate() {
     let mut travelled: HashSet<(usize, usize)> = HashSet::new();
     frontier.push(*spos);
-    println!("{:?}", frontier);
     while let Some(pos) = frontier.pop() {
-      println!("{:?}", frontier);
       let val = file[pos.0][pos.1];
       if val == 9 {
         peaks[i]+=1;
@@ -78,20 +73,15 @@ fn main() {
 
   println!("{}", peaks.iter().sum::<i32>());
   
+
   // * PART 1 *
-  // hashmap to keep track of start_pos to summit trails
   let mut frontier = VecDeque::new();
   let mut peaks = vec![0; start_pos.len()];
 
-  // * PART 1 *
-
-  println!("{:?}", start_pos);
   for (i, spos) in start_pos.iter().enumerate() {
     let mut travelled: HashSet<(usize, usize)> = HashSet::new();
     frontier.push_front(*spos);
-    println!("{:?}", frontier);
     while let Some(pos) = frontier.pop_back() {
-      println!("{:?}", frontier);
       let val = file[pos.0][pos.1];
       if val == 9 {
         peaks[i]+=1;
@@ -141,14 +131,5 @@ fn validate_and_expand(a: u8, b:u8, pos: &(usize, usize), travelled: &HashSet<(u
 fn validate_and_expand2(a: u8, b:u8, pos: &(usize, usize), travelled: &HashSet<(usize, usize)>, frontier: &mut VecDeque<(usize, usize)>) {
   if a + 1 == b && !travelled.contains(pos) {
     frontier.push_front(*pos);
-  }
-}
-
-fn printmap(map: &[Vec<u8>]) {
-  for row in map.iter() {
-    for n in row {
-      print!("{}", n);
-    }
-    println!();
   }
 }

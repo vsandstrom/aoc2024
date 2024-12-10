@@ -1,7 +1,7 @@
 use std::fs;
 
 fn main() {
-  let data = fs::read_to_string("day2/input")
+  let data = fs::read_to_string("day02/input")
     .expect("file parsing")
     .trim()
     .lines()

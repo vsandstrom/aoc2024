@@ -52,7 +52,7 @@ fn main() {
   // let width = 10;
   let height = 130;
   let width = 130;
-  for (i, l) in fs::read_to_string("day6/input").expect("no input").lines().enumerate() {
+  for (i, l) in fs::read_to_string("day06/input").expect("no input").lines().enumerate() {
     for (j,c) in l.chars().enumerate() {
       if c == '#' {
         pos.insert((i.try_into().expect("unconvertable"), j.try_into().expect("unconvertable")));

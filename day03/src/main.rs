@@ -3,7 +3,7 @@ use regex::Regex;
 fn main() {
   let re1 = Regex::new(r"mul\(\d+,\d+\)").unwrap();
   let re2 = Regex::new(r"(mul\(\d+,\d+\)|don\'t\(\)|do\(\))").unwrap();
-  let data = fs::read_to_string("day3/input").expect("file parsing");
+  let data = fs::read_to_string("day03/input").expect("file parsing");
   let mut sum = 0;
   for instr in re1.find_iter(&data).map(|m|m.as_str()) {
     sum += mul(instr);
