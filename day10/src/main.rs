@@ -7,7 +7,7 @@ use std::{
 
 fn main() {
   let mut argv = args();
-  let file = fs::read_to_string(format!("day10/{}", path(), argv.nth(1).unwrap_or("test".to_string())))
+  let file = fs::read_to_string(format!("day10/{}", argv.nth(1).unwrap_or("test".to_string())))
     .expect("no input file")
     .lines()
     .map(|l| l.bytes().map(|b| {b-b'0'}).collect::<Vec<u8>>())
