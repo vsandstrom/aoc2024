@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 
 
 fn main() {
-  let file = fs::read_to_string("day05/test").expect("file parsing");
+  let file = fs::read_to_string("day05/input").expect("file parsing");
   let mut data = file.split("\n\n");
   let mut bck_rules: HashMap<i32, HashSet<i32>> = HashMap::new();
   let mut fwd_rules: HashMap<i32, HashSet<i32>> = HashMap::new();
@@ -73,30 +73,19 @@ fn main() {
   }
   println!("{}", sum);
 
+  let mut sum = 0;
   for mut page_order in filtered_orders { 
-    // for every page
-    // loop over the rest of the pages, and check if all is in order.
-    // if not in order, remove the faulty one, shift every number to the right, including the
-    // current page. 
-    // Start over from the top.
-   
-    // let mut i = 0;
-    // while i < page_order.len() {
-    //   let page = page_order[i];
-    //   let slc = page_order[i..].to_vec();
-    //   if let Some(rule) = fwd_rules.get(&page) {
-    //     for (j, p) in slc.iter().enumerate() {
-    //       if !rule.contains(p) {
-    //         let mut k = i;
-    //         while k <= j {
-    //           page_order.swap(k, i+1);
-    //           println!("{:?}", page_order);
-    //           k+=1;
-    //         }
-    //         i+=1;
-    //       }
-    //     }
-    //   }
-    // }
+    page_order.sort_by(|a, b| {
+      match fwd_rules.get(a) {
+        Some(hs) => { 
+          if hs.contains(b) {Ordering::Less }
+          else {Ordering::Greater}
+        },
+        None => Ordering::Equal
+    }});
+
+    let j = page_order.len() / 2;
+    sum += page_order[j];
   }
+  println!("{}", sum);
 }
