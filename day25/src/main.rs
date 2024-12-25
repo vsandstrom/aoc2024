@@ -2,7 +2,7 @@ use std::borrow::{Borrow, BorrowMut};
 
 fn main() {
   let mut argv = std::env::args();
-  let mut data = std::fs::read_to_string(
+  let data = std::fs::read_to_string(
     format!("day25/{}", argv.borrow_mut().nth(1).clone().unwrap_or("test".to_string())))
     .expect("no input file");
 
@@ -22,9 +22,7 @@ fn main() {
     }
   }
 
-
   let mut sum = 0;
-
   for lock in &locks {
     for key in &keys {
       if lock[0] > key[0] { continue; }
