@@ -1,12 +1,16 @@
 use std::env::args;
-use std::collections::VecDeque;
 
 fn main() {
 
   let mut input = std::fs::read_to_string(
     format!("day15/{}", args().nth(1).unwrap_or("test".to_string()))).expect("no such input");
 
-  let (mut room, mut moves) = input.split("\n\n").collect::<Vec<&str>>()[..].windows(2).next().map(|x| {
+  let (mut room, moves) = input
+    .split("\n\n")
+    .collect::<Vec<&str>>()[..]
+    .windows(2)
+    .next()
+    .map(|x| {
     (
       x[0]
       .lines()
